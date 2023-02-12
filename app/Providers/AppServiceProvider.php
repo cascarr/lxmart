@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+// use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+
     }
 
     /**
@@ -24,5 +26,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        //view()->composer('layouts.app', function($view) {
+            //
+            // $categories = \App\Category::where('id', 0)->with('subcategories')->get();
+            //$view->with(compact('categories'));
+        //});
+
+
     }
+
+
 }
