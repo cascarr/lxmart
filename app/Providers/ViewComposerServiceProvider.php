@@ -8,6 +8,7 @@ use Illuminate\Support\Facades;
 use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Cart;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -38,8 +39,6 @@ class ViewComposerServiceProvider extends ServiceProvider
 
               ]);
         });
-
-        //
 
     }
 }

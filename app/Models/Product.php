@@ -22,6 +22,7 @@ class Product extends Model
         'price',
         'description',
         'product_img',
+        'product_imgpath',
         'category_id',
         'subcategory_id',
     ];
@@ -44,6 +45,20 @@ class Product extends Model
 
         return $this->belongsTo(Subcategory::class);
 
+    }
+
+    /**
+     * A Product has many Comments
+    */
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * A Product has many CommentReplies
+    */
+    public function comment_replies() {
+        return $this->hasMany(CommentReply::class);
     }
 
     /**

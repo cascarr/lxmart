@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('title', 'Home')
+
 @section('content')
 
 
@@ -65,93 +67,39 @@
                 <div class="row">
 
                     <!-- logic comes in here -->
+                    @forelse ($products as $product)
+
                     <div class="col-md-4 col-sm-6">
                         <div class="blog-post">
                             <div class="blog-thumb">
-                                <img src="{{ URL::asset('frontend/images/blogpost1.jpg') }}"
-                                     alt="">
+                                <img class="img-response" src="{{ asset( '/storage/uploads/'. $product->product_img ) }}"
+                                     alt="{{ $product->name }}">
                             </div>
                             <div class="blog-content">
                                 <div class="content-show">
                                     <h4>
-                                        <a href="#">
-                                            Summer Sandwich
+                                        <a href="{{ route('product.detail', $product->id) }}">
+                                            {{ $product->name }}
                                         </a>
                                     </h4>
-                                    <span>29 Sep 2084</span>
+                                    <span>&#8358;{{ $product->price }}</span>
                                 </div><!-- content-show -->
                                 <div class="content-hide">
                                     <p>
-                                        Sed egestas tincidunt mollis. Suspendisse
-                                        rhoncus vitae enim et faucibus.
-                                        Ut dignissim nec arcu nec hendrerit.
-                                        Sed arcu odio, sagittis vel diam in, malesuada
-                                        malesuada risus.
-                                        Aenean a sem leo. Nam ultricies dolor et mi tempor,
-                                        non pulvinar felis sollicitudin.
+                                        {{ $product->description }}
                                     </p>
                                 </div><!-- content-hide -->
                             </div><!-- blog-content -->
                         </div><!-- blog-post -->
                     </div><!-- col-md-4 col-sm-6 -->
-                    <div class="col-md-4 col-sm-6">
-                        <div class="blog-post">
-                            <div class="blog-thumb">
-                                <img src="{{ URL::asset('frontend/images/blogpost1.jpg') }}"
-                                     alt="">
-                            </div>
-                            <div class="blog-content">
-                                <div class="content-show">
-                                    <h4>
-                                        <a href="#">
-                                            Summer Sandwich
-                                        </a>
-                                    </h4>
-                                    <span>29 Sep 2084</span>
-                                </div><!-- content-show -->
-                                <div class="content-hide">
-                                    <p>
-                                        Sed egestas tincidunt mollis. Suspendisse
-                                        rhoncus vitae enim et faucibus.
-                                        Ut dignissim nec arcu nec hendrerit.
-                                        Sed arcu odio, sagittis vel diam in, malesuada
-                                        malesuada risus.
-                                        Aenean a sem leo. Nam ultricies dolor et mi tempor,
-                                        non pulvinar felis sollicitudin.
-                                    </p>
-                                </div><!-- content-hide -->
-                            </div><!-- blog-content -->
-                        </div><!-- blog-post -->
-                    </div><!-- col-md-4 col-sm-6 -->
-                    <div class="col-md-4 col-sm-6">
-                        <div class="blog-post">
-                            <div class="blog-thumb">
-                                <img src="{{ URL::asset('frontend/images/blogpost1.jpg') }}"
-                                     alt="">
-                            </div>
-                            <div class="blog-content">
-                                <div class="content-show">
-                                    <h4>
-                                        <a href="#">
-                                            Summer Sandwich
-                                        </a>
-                                    </h4>
-                                    <span>29 Sep 2084</span>
-                                </div><!-- content-show -->
-                                <div class="content-hide">
-                                    <p>
-                                        Sed egestas tincidunt mollis. Suspendisse
-                                        rhoncus vitae enim et faucibus.
-                                        Ut dignissim nec arcu nec hendrerit.
-                                        Sed arcu odio, sagittis vel diam in, malesuada
-                                        malesuada risus.
-                                        Aenean a sem leo. Nam ultricies dolor et mi tempor,
-                                        non pulvinar felis sollicitudin.
-                                    </p>
-                                </div><!-- content-hide -->
-                            </div><!-- blog-content -->
-                        </div><!-- blog-post -->
-                    </div><!-- col-md-4 col-sm-6 -->
+
+                    @empty
+
+                    <p>None</p>
+
+                    @endforelse
+
+
                     <!-- end of logic here -->
 
                 </div><!-- row -->

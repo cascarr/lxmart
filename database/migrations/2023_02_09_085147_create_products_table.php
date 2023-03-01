@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             // $table->id();
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('slug');
-            $table->decimal('price', 9, 4);
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->decimal('price', 9, 2)->nullable();
+            $table->text('description')->nullable();
             $table->string('product_img')->nullable();
-            $table->text('description');
+            $table->string('product_imgpath')->nullable();
 
-            $table->foreignUuid('category_id');
-            $table->foreignUuid('subcategory_id');
+            $table->foreignUuid('category_id')->nullable();
+            $table->foreignUuid('subcategory_id')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

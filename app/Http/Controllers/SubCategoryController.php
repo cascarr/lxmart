@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class SubCategoryController extends Controller
@@ -17,6 +18,7 @@ class SubCategoryController extends Controller
      * Ajax functionality for creating Subcategory
      */
     public function storeSubCategory(Request $request) {
+
         // validating user entered inputs
         $request->validate(
             [
@@ -25,7 +27,7 @@ class SubCategoryController extends Controller
             ],
             [
                 'name.required' => 'You must have a Subcategory name.',
-                'category.required' => 'You must pick a category'
+                'category.required' => 'You must pick a category',
             ]
         );
 
@@ -36,11 +38,11 @@ class SubCategoryController extends Controller
              * Checks if a subcategory name with same
              * input value already exist in the database.
              */
-            if (DB::table('subcategories')->where('name', $request->name)->exists()) {
+            if (DB::table('subcategories')->where('name', $request->name)->exists() ) {
 
                 // redirect if already exists
                 return Redirect('categorylist/list/')
-                           ->with('error', 'This Subcategory name already exists.');
+                           ->with('error', 'This Subcategory\'s category already exists.');
 
             } else {
                 // Save to the database if not already exist.

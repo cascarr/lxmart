@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Redirect;
 use response;
 use App\Models\Product;
+use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\CommentReply;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +31,7 @@ class ProductController extends Controller
 
     }
 
-    
+
 
     /**
      * Method for Ajax functionality for adding
@@ -43,16 +46,16 @@ class ProductController extends Controller
                 'price' => 'required',
                 'description' => 'required',
                 'imageFile' => 'required|mimes:jpeg,jpg,png,gif,csv,txt,pdf|max:2048',
-                'category_id' => 'required',
-                'subcategory_id' => 'required',
+                'category' => 'required',
+                'subcategory' => 'required',
             ],
             [
                 'name.required' => 'Must have a product name',
                 'price.required' => 'Must enter a price',
                 'description.required' => 'Must describe this product',
                 'imageFile.required' => 'Must upload an image of the product',
-                'category_id.required' => 'Must pick a category',
-                'subcategory_id.required' => 'Must pick a subcategory',
+                'category.required' => 'Must pick a category',
+                'subcategory.required' => 'Must pick a subcategory',
             ]
         );
 
@@ -87,10 +90,11 @@ class ProductController extends Controller
                     'name' => $request->name,
                     'slug' => SlugService::createSlug(Product::class, 'slug', $request->name),
                     'price' => $request->price,
+                    'product_img' => $fileName,
+                    'product_imgpath' => $productImgPath,
                     'description' => $request->description,
-                    'product_img' => $productImgPath,
-                    'category_id' => $request->category_id,
-                    'subcategory_id' => $request->subcategory_id,
+                    'category_id' => $request->category,
+                    'subcategory_id' => $request->subcategory,
                 ]);
 
                 return Redirect('categorylist/list')
@@ -102,6 +106,67 @@ class ProductController extends Controller
         return Redirect('userauth/login')
                    ->with('You must be logged in!');
 
+    }
+
+    /**
+     * Method for comprehensive detail on the product
+     */
+    public function showProductDtail(Product $productId) {
+
+        // access the Comment model
+        $comments = Comment::where('product_id','=', $productId->id)->get();
+        $commentreplies = CommentReply::where('product_id', '=', $productId->id)->get();
+        // dd($commentreplies);
+
+        return view('frontend.productview.detail', [
+            'product' => $productId,
+            'comments' => $comments,
+            'commentreplies' => $commentreplies,
+        ]);
+    }
+
+    /**
+     * Method for addToCart functionality
+    */
+    public function addToCart($id) {
+
+        // $product = Product::find($request->input('product_id'));
+        // $options = $request->except('_token', 'product_id', 'price', 'qty');
+
+        // Cart::add(uniqid(), $product->name, $request->input('price'), $request->input('qty'), $options);
+
+        // \Cart::add([
+        //     'id' => $request->product_id,
+        //     'name' => $request->name,
+        //     'price' => $request->price,
+        //     'quantity' => $request->qty,
+        //     'attributes' => array(
+        //         'image' => $request->product_img,
+        //     )
+
+        // ]);
+
+        $product = Product::findOrFail($id);
+
+        $cart = session()->get('cart', []);
+
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "product_name" => $product->name,
+                "product_image" => $product->product_img,
+                "price" => $product->price,
+                "quantity" => 1
+            ];
+        }
+
+        // session()->flash('success', 'Product is Added to Cart Successfully!');
+        session()->put('cart', $cart);
+        session()->flash('success', 'Product is Added to Cart Successfully!');
+
+        return redirect()->route('checkout.cart');
+        // return view('frontend.productview.cart');
     }
 
 }

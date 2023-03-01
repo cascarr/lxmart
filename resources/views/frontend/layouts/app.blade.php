@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html >
+    <!--  -->
+    {{-- lang="{{ str_replace('_', '-', app()->getLocale()) }}" --}}
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>LxMart - Homepage</title>
+        <title>
+            @yield('title')
+        </title>
 
         <!-- Styles -->
         @include('frontend.partials.styles')
 
         <style>
+
+            /** Image Responsiveness */
+            .img-response {
+                width: 200px;
+                height: 300px;
+                object-fit: cover;
+            }
 
             .dropdown-magic {
                 position: fixed;
@@ -118,9 +129,11 @@
                         <div class="col-md-6">
                             <div class="cart-info">
                                 <i class="fa fa-shopping-cart"></i>
-                                (<a href="#">5 items</a>) in your cart
-                                (<a href="#">$45.80</a>)
-                            </div><!-- cart-info -->
+                                (<a href="{{ route('checkout.cart') }}">
+                                    ({{ count(Session::get('cart', array())) }})
+                                     items
+                                </a>)
+                            </div><!-- cart-info  -->
                         </div><!-- col-md-6 -->
 
                     </div><!-- row -->
@@ -215,12 +228,15 @@
             @include('frontend.partials.footer')
         </footer><!-- footer -->
 
+
         <!-- Scripts -->
         @include('frontend.partials.scripts')
 
 
         <!-- Script for client-side validation -->
         <script>
+
+
 
             /**
              * JS script for disabling form submission if
@@ -248,6 +264,18 @@
            })();
 
            /**
+             * AJAX function for Comment reply
+             * functionality
+             */
+             function rplyComment(id) {
+
+                var replyCommentId = $('#reply_commentId').val(id);
+
+                $('#commentReplyFmModal').modal('show');
+
+            }
+
+           /**
             * AJAX function for dropdown of
             * subcategories
            */
@@ -266,13 +294,92 @@
                 });
             });
 
-
           });
+
+          /**
+           * AJAX function for Cart Update
+          */
+         //$(document).ready(function() {
+
+           // $("#quantity").change(function() {
+
+               // var rowid = $('#rowId').val();
+               // var prodId = $('#prodId').val();
+               // var rowqty = $('#quantity').val();
+
+               // alert(prodId);
+
+               // $.ajax({
+
+
+                   // url: '<?php echo url('/cart/update/'); ?>/id='+ rowid,
+
+                   // method: 'GET',
+                   // data: "qty="+ rowqty +"& rowId="+ rowid,
+
+                  //  success: function(response) {
+                        // alert(data);
+                        // $('#quantity').html(data.html);
+                        // alert(response);
+                    //    console.log(response);
+                   // }
+
+               // });
+           // });
+
+         //})
+         $('.cart_update').change(function(e) {
+            e.preventDefault();
+
+            var eleVal = $(this);
+
+            $.ajax({
+                url: '{{ route('cart.update') }}',
+                method: "patch",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: eleVal.parents("tr").attr("data-id"),
+                    quantity: eleVal.parents("tr").find(".quantity").val()
+                },
+                success: function (response) {
+                    window.location.reload();
+                }
+            });
+
+         });
+
+         /**
+          * Script for remove from cart functionality
+         */
+        $('.cart_remove').click(function(e) {
+            e.preventDefault();
+
+            var ele = $(this);
+
+            if(confirm("Do you really want to remove?")) {
+                $.ajax({
+                    url: '{{ route('checkout_cart.remove') }}',
+                    method: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: ele.parents("tr").attr("data-id")
+                    },
+                    success: function (response) {
+                        window.location.reload();
+                    }
+                });
+            }
+
+        });
+
+
 
 
 
 
         </script>
+
+
 
     </body>
 </html>
