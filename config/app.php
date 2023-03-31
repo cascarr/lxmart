@@ -181,6 +181,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -209,9 +210,14 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
+    // 'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
-    ])->toArray(),
+        // 'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+
+    // ])->toArray(),
+
+    'aliases' => [
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+    ],
 
 ];

@@ -11,41 +11,41 @@
                 <ul class="slides">
                     <li>
                         <div class="slider-caption">
-                            <h1>Delicious Meals</h1>
-                            <p>
+                            <h1>Indian Assa</h1>
+                            {{-- <p>
                                 Donec justo dui, semper vitae aliquam
                                 euzali, ornare pretium enim. Maecenas
                                 molestie diam <br><br>
                                 eget tellus luctus fermentum.
-                            </p>
+                            </p> --}}
                             <a href="#">Shop Now</a>
                         </div><!-- slider-caption -->
-                        <img src="{{ URL::asset('frontend/images/slide1.jpg') }}" alt="Featured product">
+                        <img src="{{ asset('frontend/images/slidenw1.jpg') }}" alt="Featured product">
                     </li>
                     <li>
                         <div class="slider-caption">
-                            <h1>Ice-cream Menus</h1>
-                            <p>
+                            <h1>Korean Assa</h1>
+                            {{-- <p>
                                 Nulla id iaculis ligula. Vivamus mattis quam
                                 eget urna tincidunt consequat. Nullam <br><br>
                                 consectetur tempor neque vitae iaculis.
                                 Aliquam erat volutpat.
-                            </p>
-                            <a href="#">More Details</a>
+                            </p> --}}
+                            <a href="#">Shop Now</a>
                         </div><!-- slider-caption -->
-                        <img src="{{ URL::asset('frontend/images/slide2.jpg') }}" alt="">
+                        <img src="{{ asset('frontend/images/slidenw2.jpg') }}" alt="">
                     </li>
                     <li>
                         <div class="slider-caption">
-                            <h1>Healthy Drinks</h1>
-                            <p>
+                            <h1>Japanese Assa</h1>
+                            {{-- <p>
                                 Maecenas fermentum est ut elementum vulputate.
                                 Ut vel consequat urna. Ut aliquet <br><br>
                                 ornare massa, quis dapibus quam condimentum id.
-                            </p>
-                            <a href="#">Get Ready</a>
+                            </p> --}}
+                            <a href="#">Shop Now</a>
                         </div><!-- slider-caption -->
-                        <img src="{{ URL::asset('frontend/images/slide3.jpg') }}" alt="">
+                        <img src="{{ asset('frontend/images/slidenw3.jpg') }}" alt="">
                     </li>
                 </ul>
 
@@ -59,7 +59,7 @@
                     <div class="col-md-12">
                         <div class="heading-section">
                             <h2>Available Products</h2>
-                            <img src="{{ URL::asset('frontend/images/under-heading.png') }}" alt="">
+                            <img src="{{ asset('frontend/images/under-heading.png') }}" alt="">
                         </div><!-- heading-section -->
                     </div><!-- col-md-12 -->
                 </div><!-- row -->
@@ -114,7 +114,7 @@
                     <div class="col-md-12">
                         <div class="heading-section">
                             <h2>What Customers Say</h2>
-                            <img src="{{ URL::asset('frontend/images/under-heading.png') }}" alt="">
+                            <img src="{{ asset('frontend/images/under-heading.png') }}" alt="">
                         </div><!-- heading-section -->
                     </div><!-- col-md-12 -->
                 </div><!-- row -->

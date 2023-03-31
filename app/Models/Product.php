@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Subcategory;
 
@@ -60,6 +61,24 @@ class Product extends Model
     public function comment_replies() {
         return $this->hasMany(CommentReply::class);
     }
+
+    /**
+     * A Product has many Carts
+     */
+    public function carts() {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * The orders that belong to this product
+     */
+    // public function orders() {
+    //     return $this->belongsToMany(
+    //         CustomerOrder::class, 'ordered_products', 'product_id', 'customer_order_id'
+    //     )->withPivot('quantity')
+    //      ->withTimestamps()
+    //      ->using(OrderedProduct::class);
+    // }
 
     /**
      * A Slug should be assigned to a product

@@ -125,48 +125,6 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Method for addToCart functionality
-    */
-    public function addToCart($id) {
-
-        // $product = Product::find($request->input('product_id'));
-        // $options = $request->except('_token', 'product_id', 'price', 'qty');
-
-        // Cart::add(uniqid(), $product->name, $request->input('price'), $request->input('qty'), $options);
-
-        // \Cart::add([
-        //     'id' => $request->product_id,
-        //     'name' => $request->name,
-        //     'price' => $request->price,
-        //     'quantity' => $request->qty,
-        //     'attributes' => array(
-        //         'image' => $request->product_img,
-        //     )
-
-        // ]);
-
-        $product = Product::findOrFail($id);
-
-        $cart = session()->get('cart', []);
-
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        } else {
-            $cart[$id] = [
-                "product_name" => $product->name,
-                "product_image" => $product->product_img,
-                "price" => $product->price,
-                "quantity" => 1
-            ];
-        }
-
-        // session()->flash('success', 'Product is Added to Cart Successfully!');
-        session()->put('cart', $cart);
-        session()->flash('success', 'Product is Added to Cart Successfully!');
-
-        return redirect()->route('checkout.cart');
-        // return view('frontend.productview.cart');
-    }
+    
 
 }

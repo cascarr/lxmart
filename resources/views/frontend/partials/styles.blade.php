@@ -8,14 +8,14 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <!-- frontend styling -->
-        <link rel="stylesheet" href="{{ URL::asset('frontend/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('frontend/css/font-awesome.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('frontend/css/templatemo_style.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('frontend/css/templatemo_misc.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('frontend/css/flexslider.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('frontend/css/testimonails-slider.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/css/font-awesome.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/css/templatemo_style.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/css/templatemo_misc.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/css/flexslider.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/css/testimonails-slider.css') }}">
 
-        <link rel="stylesheet" href="{{ URL::asset('frontend/stylecart/cart/style.css') }}">
+        <link rel="stylesheet" href="{{ url('frontend/stylecart/cart/style.css') }}">
 
         <style>
             body {

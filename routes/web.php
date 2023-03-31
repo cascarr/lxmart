@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LxAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentReplyController;
 use App\Http\Controllers\SubCategoryController;
@@ -28,15 +29,36 @@ use App\Http\Controllers\SubCategoryController;
 
 Route::get('/', [ProductController::class, 'index'])->name('all.products');
 Route::get('product/{productId}', [ProductController::class, 'showProductDtail'])->name('product.detail');
-Route::get('cart/addItem/{id}', [ProductController::class, 'addToCart'])->name('product.addToCart');
+
 
 /**
  * Cart System
 */
 Route::get('/cart', [CartController::class, 'getCart'])->name('checkout.cart');
+Route::get('cart/addItem/{id}', [CartController::class, 'addToCart'])->name('product.addToCart');
 Route::patch('cart/update/', [CartController::class, 'updateCart'])->name('cart.update'); // AJAX call
-Route::delete('/cart/item/remove', [CartController::class, 'removeItem'])->name('checkout_cart.remove');
+Route::delete('/cart/item/remove', [CartController::class, 'removeItem'])->name('checkout_cart.remove'); // AJAX call
 Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('checkout_cart.clear');
+
+
+/**
+ * Order System
+ */
+// Route::get('checkout/form', [OrderController::class, 'orderForm'])->name('getorder.form');
+// Route::middleware(['auth'])->group(function() {
+// });
+Route::get('proceed-checkout', [OrderController::class, 'gotoOrder'])->name('orderform');
+Route::group(['prefix' => 'checkout', 'middleware' => ['auth']], function() {
+    Route::get('form', [OrderController::class, 'orderForm'])->name('getorder.form');
+    Route::post('placeorder', [OrderController::class, 'placeOrder'])->name('submitorder.form');
+    Route::get('confirm', [OrderController::class, 'confirmOrder'])->name('confirm.order');
+});
+
+/**
+ * PAYMENT System
+*/
+Route::post('/pay', [App\Http\Controllers\PaymentController::class, 'redirectToGateway'])->name('pay');
+Route::get('/payment/callback', [App\Http\Controllers\PaymentController::class, 'handleGatewayCallback'])->name('payment');
 
 /**
  * Designing the Comment System.
@@ -69,9 +91,10 @@ Route::group(['prefix' => 'userauth'], function() {
 /**
  * Enable CRUD of Category list
  */
-Route::group(['prefix' => 'categorylist', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
-    Route::get('list', [CategoryController::class, 'index'])->name('list.categories');
+    Route::get('manage', [CategoryController::class, 'index'])->name('manage.user-order');
+    Route::get('manage/products', [CategoryController::class, 'inventories'])->name('manage.inven');
     Route::get('list/category_id', [CategoryController::class, 'dbsubcategories'])->name('get.subcategories');
 
 

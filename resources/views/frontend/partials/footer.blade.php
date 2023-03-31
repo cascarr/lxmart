@@ -27,12 +27,12 @@
                     </h4>
                     <p>
                         <strong>
-                            <a href="/">LxMart</a>
+                            <a href="{{ route('all.products') }}">LxMart</a>
                         </strong>
-                        is a small grocery online store,
+                        is a small online clothing store,
                         that collaborates with several local
-                        farms to supply the community with
-                        organic produce and foods.
+                        designers to supply the community with
+                        beautiful fabrics.
                     </p>
                 </div><!-- about -->
             </div><!-- col-md-3 -->
@@ -64,19 +64,23 @@
                     </h4>
 
                     <!-- logic comes in here -->
-                    <div class="recent-post">
-                        <div class="recent-post-thumb">
-                            <img src="{{ URL::asset('frontend/images/recent-post1.jpg') }}" alt="">
-                        </div><!-- recent-post-thumb -->
-                        <div class="recent-post-info">
-                            <h6>
-                                <a href="">
-                                    Fresh Cow Milk
-                                </a>
-                            </h6>
-                            <span>24/12/2084</span>
-                        </div><!-- recent-post-info -->
-                    </div><!-- recent-post -->
+                    @foreach ($products as $product)
+
+                        <div class="recent-post">
+                            <div class=" recent-post-thumb">
+                                <img class="img-footer" src="{{ asset( '/storage/uploads/'. $product->product_img ) }}" alt="">
+                            </div><!-- recent-post-thumb -->
+                            <div class="recent-post-info">
+                                <h6>
+                                    <a href="{{ route('product.detail', $product->id) }}">
+                                        {{ $product->name }}
+                                    </a>
+                                </h6>
+                            </div><!-- recent-post-info -->
+                        </div><!-- recent-post -->
+
+                    @endforeach
+
                     <!-- end of logic -->
 
                 </div><!-- recent-posts -->
@@ -89,7 +93,7 @@
                     </h4>
                     <p>
                         <strong>
-                            <a href="/">LxMart</a>
+                            <a href="{{ route('all.products') }}">LxMart</a>
                         </strong>
                         was developed by
                         <strong>
@@ -135,6 +139,7 @@
                         Cascarr Ihesie
                     </span>
                 </a>
+                | <a href="{{ route('manage.user-order') }}">Man</a>
             </span>
         </p>
     </div><!-- bottom-footer -->

@@ -22,10 +22,22 @@ class CategoryController extends Controller
         $categories = Category::all();
         $dsubcategories = Subcategory::all();
 
-        return view('frontend.categories.index', [
+        // 'frontend.categories.index'
+
+        return view('backend.dashboard.index', [
             'categories' => $categories
         ]);
 
+    }
+
+    public function inventories() {
+
+        $categories = Category::all();
+        $dsubcategories = Subcategory::all();
+
+        return view('backend.dashboard.inventory', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -72,7 +84,7 @@ class CategoryController extends Controller
             if (DB::table('categories')->where('name', $request->name)->exists()) {
 
                 // redirect if already exists
-                return Redirect('categorylist/list')
+                return Redirect('admin/manage')
                            ->with('error', 'This Category name already exists.');
 
             } else {
@@ -82,7 +94,7 @@ class CategoryController extends Controller
                     'slug' => SlugService::createSlug(Category::class, 'slug', $request->name),
                 ]);
 
-                return Redirect('categorylist/list')->with('success', 'Category Item added successfully.');
+                return Redirect('admin/manage')->with('success', 'Category Item added successfully.');
             }
 
 

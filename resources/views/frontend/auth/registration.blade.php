@@ -2,7 +2,7 @@
 
 @section('auth_content')
 
-            <form action="{{ route('register.custom') }}" method="POST" class="form-horizontal templatemo-contact-form-1"
+            <form action="{{ route('register.custom') }}" method="post"  class="form-horizontal templatemo-contact-form-1"
                   role="form">
                   @csrf
 

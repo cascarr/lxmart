@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
-use Session;
+
+// use Hash;
+// use Session;
 use Redirect;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 // use App\Http\Controllers\
 
 
@@ -54,6 +57,17 @@ class LxAuthController extends Controller
 
     }
 
+    // function to register the user data in the database.
+    public function create(array $data) {
+
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+    }
+
     // function for registration submission
     public function customRegistration(Request $request) {
 
@@ -75,16 +89,7 @@ class LxAuthController extends Controller
 
     }
 
-    // function to register the user data in the database.
-    public function create(array $data) {
 
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-
-    }
 
     // function to signout the user
     public function signOut() {
